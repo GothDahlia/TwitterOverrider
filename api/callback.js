@@ -50,7 +50,10 @@ const profilePath = path.join(process.cwd(), 'public/profile.jpg');
 
     res.end("😈");
   } catch (error) {
-    console.error("Fehler beim Callback:", error);
-    res.writeHead(500).end("Fehler beim Ändern des Profils.");
+  console.error("❌ Callback Error:");
+  console.error(error);
+
+  const message = error?.data?.errors?.[0]?.message || error.message || "Unbekannter Fehler";
+  res.writeHead(500).end("Fehler beim Ändern des Profils:\n" + message);
   }
 }
