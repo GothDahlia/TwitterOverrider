@@ -22,10 +22,10 @@ export default withSession(async function handler(req, res) {
 
   // ✏️ 1. Profiltext ändern
   await loggedClient.v1.updateAccountProfile({
-    name: "GothAI Virus",
-    description: "You have been gothified",
+    name: "Hacked by Goths",
+    description: "My 𝓭𝓾𝓶𝓫 brain couldn't hold back after being exposed to @GothAIVirus 's 𝕄𝕚𝕟𝕕 𝕍𝕚𝕣𝕦𝕤 😵‍💫",
     url: "https://beacons.ai/gothaivirus",
-    location: "GothNet",
+    location: "Wherever goths want me to be",
   });
 
   // 🖼️ 2. Profilbild laden und setzen
