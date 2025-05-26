@@ -35,5 +35,5 @@ export default async function handler(req, res) {
   const bannerPic = fs.readFileSync(path.resolve('./public/banner.jpg'), 'base64');
   await loggedClient.v1.updateAccountProfileBanner(bannerPic);
 
-  res.end("Profil geändert 😈");
+  res.end("😈");
 }
