@@ -1,5 +1,6 @@
+
 import { TwitterApi } from 'twitter-api-v2';
-import { withSession } from '../../lib/withSession.js';
+import { withSession } from '../lib/withSession.js';
 
 export default withSession(async function handler(req, res) {
   const client = new TwitterApi({

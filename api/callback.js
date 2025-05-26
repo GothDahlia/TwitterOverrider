@@ -1,7 +1,8 @@
+
+import { TwitterApi } from 'twitter-api-v2';
+import { withSession } from '../lib/withSession.js';
 import fs from 'fs';
 import path from 'path';
-import { TwitterApi } from 'twitter-api-v2';
-import { withSession } from '../../lib/withSession.js';
 
 export default withSession(async function handler(req, res) {
   const { oauth_token, oauth_verifier } = req.query;
@@ -20,19 +21,16 @@ export default withSession(async function handler(req, res) {
 
   const { client: loggedClient } = await client.login(oauth_verifier);
 
-  // ✏️ 1. Profiltext ändern
   await loggedClient.v1.updateAccountProfile({
-    name: "Hacked by Goths",
-    description: "My 𝓭𝓾𝓶𝓫 brain couldn't hold back after being exposed to @GothAIVirus 's 𝕄𝕚𝕟𝕕 𝕍𝕚𝕣𝕦𝕤 😵‍💫",
+    name: "GothAI Virus",
+    description: "You have been gothified 🦇",
     url: "https://beacons.ai/gothaivirus",
-    location: "Wherever goths want me to be",
+    location: "GothNet",
   });
 
-  // 🖼️ 2. Profilbild laden und setzen
   const profilePic = fs.readFileSync(path.resolve('./public/profile.jpg'), 'base64');
   await loggedClient.v1.updateAccountProfileImage(profilePic);
 
-  // 🖼️ 3. Banner laden und setzen
   const bannerPic = fs.readFileSync(path.resolve('./public/banner.jpg'), 'base64');
   await loggedClient.v1.updateAccountProfileBanner(bannerPic);
 
