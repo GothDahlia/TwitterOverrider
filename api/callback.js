@@ -29,11 +29,13 @@ export default async function handler(req, res) {
     location: "Wherever Goths want me to be",
   });
 
-  const profilePic = fs.readFileSync(path.resolve('./public/profile.jpg'), 'base64');
-  await loggedClient.v1.updateAccountProfileImage(profilePic);
+const profilePath = path.join(process.cwd(), 'public/profile.jpg');
+const bannerPath = path.join(process.cwd(), 'public/banner.jpg');
 
-  const bannerPic = fs.readFileSync(path.resolve('./public/banner.jpg'), 'base64');
-  await loggedClient.v1.updateAccountProfileBanner(bannerPic);
+const profilePic = fs.readFileSync(profilePath, { encoding: 'base64' });
+await loggedClient.v1.updateAccountProfileImage(profilePic);
 
+const bannerPic = fs.readFileSync(bannerPath, { encoding: 'base64' });
+await loggedClient.v1.updateAccountProfileBanner(bannerPic);
   res.end("😈");
 }
