@@ -1,0 +1,9 @@
+{
+  "name": "twitter-oauth-app",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "iron-session": "^8.0.4",
+    "twitter-api-v2": "^1.17.2"
+  }
+}
