@@ -1,8 +1,9 @@
-
 import { TwitterApi } from 'twitter-api-v2';
-import { withSession } from '../lib/withSession.js';
+import { getSession } from '../lib/withSession.js';
 
-export default withSession(async function handler(req, res) {
+export default async function handler(req, res) {
+  const session = await getSession(req, res);
+
   const client = new TwitterApi({
     appKey: process.env.TWITTER_API_KEY,
     appSecret: process.env.TWITTER_API_SECRET,
@@ -12,8 +13,9 @@ export default withSession(async function handler(req, res) {
     process.env.CALLBACK_URL
   );
 
-  req.session.oauth_token_secret = oauth_token_secret;
-  await req.session.save();
+  session.oauth_token_secret = oauth_token_secret;
+  await session.save();
 
-  res.redirect(url);
-});
+  res.writeHead(302, { Location: url });
+  res.end();
+}

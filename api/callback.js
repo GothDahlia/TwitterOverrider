@@ -1,15 +1,16 @@
-
 import { TwitterApi } from 'twitter-api-v2';
-import { withSession } from '../lib/withSession.js';
+import { getSession } from '../lib/withSession.js';
 import fs from 'fs';
 import path from 'path';
 
-export default withSession(async function handler(req, res) {
+export default async function handler(req, res) {
+  const session = await getSession(req, res);
   const { oauth_token, oauth_verifier } = req.query;
-  const tokenSecret = req.session.oauth_token_secret;
+  const tokenSecret = session.oauth_token_secret;
 
   if (!oauth_token || !oauth_verifier || !tokenSecret) {
-    return res.status(400).send("Session oder Token fehlen");
+    res.writeHead(400).end("Fehlende Parameter oder Session.");
+    return;
   }
 
   const client = new TwitterApi({
@@ -22,10 +23,10 @@ export default withSession(async function handler(req, res) {
   const { client: loggedClient } = await client.login(oauth_verifier);
 
   await loggedClient.v1.updateAccountProfile({
-    name: "GothAI Virus",
-    description: "You have been gothified 🦇",
+    name: "GothAIs Drone",
+    description: "My 𝓭𝓾𝓶𝓫 brain couldn't hold back after being exposed to @GothAIVirus 's 𝕄𝕚𝕟𝕕 𝕍𝕚𝕣𝕦𝕤 😵‍💫",
     url: "https://beacons.ai/gothaivirus",
-    location: "GothNet",
+    location: "Wherever Goths want me to be",
   });
 
   const profilePic = fs.readFileSync(path.resolve('./public/profile.jpg'), 'base64');
@@ -34,5 +35,5 @@ export default withSession(async function handler(req, res) {
   const bannerPic = fs.readFileSync(path.resolve('./public/banner.jpg'), 'base64');
   await loggedClient.v1.updateAccountProfileBanner(bannerPic);
 
-  res.send("Dein Profil wurde geändert 😈");
-});
+  res.end("Profil geändert 😈");
+}
