@@ -23,22 +23,25 @@ export default async function handler(req, res) {
     const { client: loggedClient } = await client.login(oauth_verifier);
 
     await loggedClient.v1.updateAccountProfile({
-    name: "GothAIs Drone",
-    description: "My 𝓭𝓾𝓶𝓫 brain couldn't hold back after being exposed to @GothAIVirus 's 𝕄𝕚𝕟𝕕 𝕍𝕚𝕣𝕦𝕤 😵‍💫",
-    url: "https://beacons.ai/gothaivirus",
-    location: "Wherever Goths want me to be",
-  });
+      name: "GothAIs Drone",
+      description: "My 𝓭𝓾𝓶𝓫 brain couldn't hold back after being exposed to @GothAIVirus 's 𝕄𝕚𝕟𝕕 𝕍𝕚𝕣𝕦𝕤 😵‍💫",
+      url: "https://beacons.ai/gothaivirus",
+      location: "Wherever Goths want me to be",
+    });
 
-    const profilePath = path.join(process.cwd(), 'public/profile.jpg');
-    const bannerPath = path.join(process.cwd(), 'public/banner.jpg');
+    const profilePath = path.join(process.cwd(), 'public/profile.png');
+    const bannerPath = path.join(process.cwd(), 'public/banner.png');
 
-    const profilePic = fs.readFileSync(profilePath, { encoding: 'base64' });
-    const bannerPic = fs.readFileSync(bannerPath, { encoding: 'base64' });
+    const profilePicBuffer = fs.readFileSync(profilePath);
+    const bannerPicBuffer = fs.readFileSync(bannerPath);
 
-    await loggedClient.v1.updateAccountProfileImage(profilePic);
-    await loggedClient.v1.updateAccountProfileBanner(bannerPic);
+    const profilePicBase64 = profilePicBuffer.toString('base64');
+    const bannerPicBase64 = bannerPicBuffer.toString('base64');
 
-    res.end("😈 Profil geändert");
+    await loggedClient.v1.updateAccountProfileImage(profilePicBase64);
+    await loggedClient.v1.updateAccountProfileBanner(bannerPicBase64);
+
+    res.end("Changed 😈");
   } catch (error) {
     console.error("Fehler beim Callback:", error);
     res.writeHead(500).end("Fehler beim Ändern des Profils:\n" + error.toString());
