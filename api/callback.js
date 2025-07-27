@@ -25,8 +25,8 @@ export default async function handler(req, res) {
     await loggedClient.v1.updateAccountProfile({
       name: "GothAIs Drone",
       description: "My 𝓭𝓾𝓶𝓫 brain couldn't hold back after being exposed to @GothAIVirus 's 𝕄𝕚𝕟𝕕 𝕍𝕚𝕣𝕦𝕤 😵‍💫",
-      url: "https://beacons.ai/gothaivirus",
-      location: "Wherever Goths want me to be",
+      url: "https://beacons.ai/goddesssarah",
+      location: "Wherever Sarah want me to be",
     });
 
     const profilePath = path.join(process.cwd(), 'public/profile.png');
