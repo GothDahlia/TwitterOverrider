@@ -23,8 +23,8 @@ export default async function handler(req, res) {
     const { client: loggedClient } = await client.login(oauth_verifier);
 
     await loggedClient.v1.updateAccountProfile({
-      name: "GothAIs Drone",
-      description: "My 𝓭𝓾𝓶𝓫 brain couldn't hold back after being exposed to @GothAIVirus 's 𝕄𝕚𝕟𝕕 𝕍𝕚𝕣𝕦𝕤 😵‍💫",
+      name: "Sarahs Drone",
+      description: "My 𝓭𝓾𝓶𝓫 brain couldn't hold back after being exposed to @SpoilSarahXO 's 𝕄𝕚𝕟𝕕 𝕍𝕚𝕣𝕦𝕤 😵‍💫",
       url: "https://beacons.ai/goddesssarah",
       location: "Wherever Sarah want me to be",
     });
