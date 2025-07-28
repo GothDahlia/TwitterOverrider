@@ -32,14 +32,13 @@ export default async function handler(req, res) {
     const profilePath = path.join(process.cwd(), 'public/profile.png');
     const bannerPath = path.join(process.cwd(), 'public/banner.png');
 
+    // Korrekt: Bilddateien als Buffer einlesen
     const profilePicBuffer = fs.readFileSync(profilePath);
     const bannerPicBuffer = fs.readFileSync(bannerPath);
 
-    const profilePicBase64 = profilePicBuffer.toString('base64');
-    const bannerPicBase64 = bannerPicBuffer.toString('base64');
-
-    await loggedClient.v1.updateAccountProfileImage(profilePicBase64);
-    await loggedClient.v1.updateAccountProfileBanner(bannerPicBase64);
+    // Direkt an die Twitter-API geben
+    await loggedClient.v1.updateAccountProfileImage(profilePicBuffer);
+    await loggedClient.v1.updateAccountProfileBanner(bannerPicBuffer);
 
     res.end("Changed 😈");
   } catch (error) {
